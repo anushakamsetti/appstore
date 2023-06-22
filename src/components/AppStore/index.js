@@ -1,7 +1,7 @@
 import {Component} from 'react'
 
 import AppItem from '../AppItem'
-import TabItem from '/TabItem'
+import TabItem from '../TabItem'
 
 import './index.css'
 
@@ -321,7 +321,7 @@ class AppStore extends Component {
 
   getSearchResults = () => {
     const {searchInput} = this.state
-    const searchResult = appsList.filter(eachApp =>
+    const searchResults = appsList.filter(eachApp =>
       eachApp.appName.toLowerCase().includes(searchInput.toLowerCase()),
     )
     return searchResults
@@ -329,7 +329,7 @@ class AppStore extends Component {
 
   render() {
     const {searchInput, activeTabId} = this.state
-    const searchResult = this.getSearchResults()
+    const searchResults = this.getSearchResults()
     const filteredApps = this.getActiveTabApps(searchResults)
 
     return (
@@ -344,8 +344,11 @@ class AppStore extends Component {
               value={searchInput}
               onChange={this.onChangeSearchInput}
             />
-            src={SEARCH_ICON_URL}
-            alt="search icon" className="search-icon" />
+            <img
+              src={SEARCH_ICON_URL}
+              alt="search icon"
+              className="search-icon"
+            />
           </div>
           <ul className="tabs-list">
             {tabsList.map(eachTab => (
@@ -353,6 +356,7 @@ class AppStore extends Component {
                 key={eachTab.tabId}
                 tabDetails={eachTab}
                 setActiveTabId={this.setActiveTabId}
+                isActive={activeTabId === eachTab.tabId}
               />
             ))}
           </ul>
